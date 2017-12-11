@@ -69,6 +69,16 @@ port 6379
 dir /var/redis/6379
 
 ```
+最后，重命名为6379.conf
+```shell
+[root@vm-linux-161 redis]# pwd
+/etc/redis
+[root@vm-linux-161 redis]# ls
+redis.conf
+[root@vm-linux-161 redis]# mv redis.conf 6379.conf
+[root@vm-linux-161 redis]# ls
+6379.conf
+```
 
 5. 启动redis
 执行 /etc/init.d/redis_6379脚本
