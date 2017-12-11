@@ -107,3 +107,39 @@ root     10362  2115  0 17:03 pts/1    00:00:00 grep --color=auto redis
 ```
 使用chkconfig命令，让脚本开机启动
 chkconfig redis_6379 on
+
+## 使用redis-cli SHUTDOWN命令
+```shell
+[root@vm-linux-161 ~]# redis-cli SHUTDOWN
+[root@vm-linux-161 ~]# ps -ef|grep redis
+root     15757  2115  0 17:39 pts/1    00:00:00 grep --color=auto redis
+[root@vm-linux-161 ~]# cd /etc/init.d/
+[root@vm-linux-161 init.d]# ./redis_6379 start
+Starting Redis server...
+[root@vm-linux-161 init.d]# ps -ef|grep redis
+root     16107     1  0 17:41 ?        00:00:00 /usr/local/bin/redis-server 127.0.0.1:6379
+root     16325  2115  0 17:42 pts/1    00:00:00 grep --color=auto redis
+[root@vm-linux-161 init.d]# 
+
+```
+
+## 使用redis-cli PING命令
+查看是否可以连通
+```shell
+[root@vm-linux-161 ~]# redis-cli PING
+PONG
+```
+
+## 使用reids-cli 连接上redis
+redis-cli -h 127.0.0.1 -p 6379 用此命令连接指定机器指定端口的redis。
+
+如果是本地的redis服务，即可直接通过redis-cli命令连接。
+
+```shell
+[root@vm-linux-161 ~]# redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379> quit
+[root@vm-linux-161 ~]# redis-cli
+127.0.0.1:6379> quit
+[root@vm-linux-161 ~]#
+
+```
