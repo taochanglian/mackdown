@@ -81,7 +81,29 @@ redis.conf
 ```
 
 5. 启动redis
-执行 /etc/init.d/redis_6379脚本
+进入/etc/init.d文件夹，给redis_6379文件赋权，然后启动它
+```shell
+[root@vm-linux-161 ~]# cd /etc/init.d/
+[root@vm-linux-161 init.d]# ls
+activity-analyzer  ambari-agent  ambari-server  functions  hst  hst-gateway  netconsole  network  README  redis_6379  vmware-tools
+[root@vm-linux-161 init.d]# chmod 777 redis_6379 
+[root@vm-linux-161 init.d]# ./redis_6379 start
+Starting Redis server...
+```
+
+确认是否启动：
+```shell
+[root@vm-linux-161 init.d]# ps -ef|grep redis
+root     10214     1  0 17:03 ?        00:00:00 /usr/local/bin/redis-server 127.0.0.1:6379
+root     10362  2115  0 17:03 pts/1    00:00:00 grep --color=auto redis
+```
 
 6.让redis自动启动
-sudo update-rc.d redis_6379 defaults
+在/etc/init.d 文件夹中，修改redis_6379文件，在最上面，加入两行注释,加入的内容如下：
+```text
+#chkconfig:		2345  90  10
+#description:	Redis is a persistent key-value database
+
+```
+使用chkconfig命令，让脚本开机启动
+chkconfig redis_6379 on
